@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { configModule } from './configure.root';
 import { TokenModule } from './token/token.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TokenModule } from './token/token.module';
       useUnifiedTopology: true,
     }),
     TokenModule,
+    MailModule,
   ],
 })
 export class AppModule {}
