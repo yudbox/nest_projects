@@ -8,9 +8,9 @@ export class Auth {
   email: string;
 
   @Prop()
-  passwordHash: number;
+  passwordHash: string;
 
-  @Prop({ type: Date, required: true })
+  @Prop()
   createdAt: Date;
 }
 
