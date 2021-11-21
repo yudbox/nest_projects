@@ -1,13 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 class ProductCharacteristic {
   name: string;
   value: string;
 }
 
-
 @Schema()
-export class Product {
+export class Product extends Document {
   @Prop()
   image: string;
 
@@ -18,7 +18,7 @@ export class Product {
   price: number;
 
   @Prop()
-  oldPrice: number;
+  oldPrice?: number;
 
   @Prop()
   credit: number;
@@ -35,19 +35,16 @@ export class Product {
   @Prop()
   disAdvantages: string;
 
-  @Prop({type: ()=> [String]})
+  @Prop({ type: () => [String] })
   catigories: string[];
 
-  @Prop({type: ()=> [String]})
+  @Prop({ type: () => [String] })
   tags: string[];
 
-  @Prop({type: ()=> [ProductCharacteristic], _id: false})
+  @Prop({ type: () => [ProductCharacteristic], _id: false })
   characteristics: ProductCharacteristic[];
-
-
 }
 export const ProductSchema = SchemaFactory.createForClass(Product);
 
-
-// @Prop({type: ()=> [ProductCharacteristic], _id: false}) означает что нам не нужны id 
+// @Prop({type: ()=> [ProductCharacteristic], _id: false}) означает что нам не нужны id
 // для каждого элемента объекта ProductCharacteristic
