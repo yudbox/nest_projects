@@ -24,16 +24,15 @@ export class TopPageAdvantage {
   description: string;
 }
 
-
-@Schema()
+@Schema({ autoIndex: true, timestamps: true })
 export class TopPage {
-  @Prop({ enum: TopLevelCategory})
+  @Prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory;
 
   @Prop()
   secondCategory: string;
 
-  @Prop({ unique: true})
+  @Prop({ unique: true })
   alias: string;
 
   @Prop()
@@ -42,10 +41,10 @@ export class TopPage {
   @Prop()
   category: string;
 
-  @Prop({type: ()=>hhData})
+  @Prop({ type: () => hhData })
   hh?: hhData;
 
-  @Prop({type: ()=>[TopPageAdvantage]})
+  @Prop({ type: () => [TopPageAdvantage] })
   advantages: TopPageAdvantage[];
 
   @Prop()
@@ -54,7 +53,9 @@ export class TopPage {
   @Prop()
   tagsTitle: string;
 
-  @Prop({type: ()=>[String]})
+  @Prop({ type: () => [String] })
   tags: string[];
 }
 export const TopPageSchema = SchemaFactory.createForClass(TopPage);
+
+TopPageSchema.index({ title: 'text', seoText: 'text' });

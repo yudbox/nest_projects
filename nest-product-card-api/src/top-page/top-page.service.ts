@@ -57,4 +57,15 @@ export class TopPageService {
   async updateTPById(id: string, dto: CreateTopPageDto) {
     return this.topPageModel.findByIdAndUpdate(id, dto, { new: true }).exec();
   }
+
+  async findByText(text: string) {
+    return await this.topPageModel
+      .find({
+        $text: {
+          $search: text,
+          $caseSensitive: false,
+        },
+      })
+      .exec();
+  }
 }
