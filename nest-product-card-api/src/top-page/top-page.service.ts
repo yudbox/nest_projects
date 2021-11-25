@@ -22,9 +22,32 @@ export class TopPageService {
   }
 
   async findTPByCategory(firstCategory: TopLevelCategory) {
-    return this.topPageModel
-      .find({ firstCategory }, { alias: 1, secondCategory: 1, title: 1 })
-      .exec();
+    // return this.topPageModel
+    //   .find({ firstCategory }, { alias: 1, secondCategory: 1, title: 1 })
+    //   .exec();
+    // aggregate принимает массив пайпов {}
+    // match это поле поиска
+    // group делает выборку из результатов совпадений match
+    // _id обязателен чтоб знать почем группировать
+    // pages любое имя в которое мы $push-им любые поля таблицы - $alias, $title и т.д.
+    return this.topPageModel.aggregate([
+      {
+        $match: {
+          firstCategory: firstCategory,
+        },
+      },
+      {
+        $group: {
+          _id: { secondCategory: '$secondCategory' },
+          pages: {
+            $push: {
+              alias: '$alias',
+              title: '$title',
+            },
+          },
+        },
+      },
+    ]);
   }
 
   async deleteTPById(id: string) {
