@@ -15,7 +15,7 @@ services:
 
   top.api:
     build: 
-      context: ./nest-product-card-api
+      context: ./
       dockerfile: ./Dockerfile
     container_name: top-api-yud
     restart: unless-stopped
