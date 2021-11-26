@@ -14,7 +14,6 @@ services:
     command: --wiredTigerCacheSizeGB 1.5
 
   top.api:
-    
     build: 
       context: ./
       dockerfile: ./Dockerfile
