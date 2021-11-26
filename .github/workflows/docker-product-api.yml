@@ -1,6 +1,6 @@
 name: Product Api Docker
 
-on: 
+on:
   push:
     branches: [master]
 
@@ -12,10 +12,8 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-         registry: docker.pkg.github.com
-         name: docker.pkg.github.com/yudbox/nest_projects/nest_projects
-         username: ${{ secrets.DOCKER_USERNAME_PRODUCT }}
-         password: ${{ secrets.DOCKER_PASSWORD_PRODUCT }}
-          
-          
+          registry: docker.pkg.github.com
+          name: docker.pkg.github.com/yudbox/nest_projects/nest-product-card-api
+          username: ${{ secrets.DOCKER_USERNAME_PRODUCT }}
+          password: ${{ secrets.DOCKER_PASSWORD_PRODUCT }}
 #       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
