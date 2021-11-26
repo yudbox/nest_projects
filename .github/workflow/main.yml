@@ -12,6 +12,7 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: myDocker/repository
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+        registry: docker.pkg.github.com
+          name: docker.pkg.github.com/yudbox/nest_projects/nest_projects
+          username: ${{ secrets.DOCKER_USERNAME_PRODUCT }}
+          password: ${{ secrets.DOCKER_PASSWORD_PRODUCT }}
