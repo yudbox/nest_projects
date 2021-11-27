@@ -1,5 +1,4 @@
 nest-first-api/node_modules
-market-card-api/node_modules
-market-card-api/.git
 nest-product-card-api/node_modules
+nest-product-card-api/uploads
 nest-product-card-api/mongo-data
