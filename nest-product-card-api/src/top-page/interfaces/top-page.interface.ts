@@ -23,4 +23,6 @@ export interface ITopPage extends Document {
   seoText: string;
   tagsTitle: string;
   tags: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
