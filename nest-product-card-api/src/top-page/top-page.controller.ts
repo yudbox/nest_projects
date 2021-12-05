@@ -12,7 +12,9 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { Cron, NestDistributedSchedule } from 'nest-schedule';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { HhService } from 'src/hh/hh.service';
 import { IdValidationPipe } from 'src/pipes/id-validation.pipes';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
 import { FindTopPageDto } from './dto/find-top-page.dto';
@@ -22,7 +24,10 @@ import { TopPageService } from './top-page.service';
 
 @Controller('top-page')
 export class TopPageController {
-  constructor(private readonly topPageService: TopPageService) {}
+  constructor(
+    private readonly topPageService: TopPageService,
+    private readonly hhservice: HhService,
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post('create')
@@ -80,5 +85,25 @@ export class TopPageController {
   @Get('textSearch/:text')
   async textSearch(@Param('text') text: string) {
     return await this.topPageService.findByText(text);
+  }
+
+  @Cron('0 0 * * *') // будет срабатывать в 00,00 часов каждый день
+  async test() {
+    const data = await this.topPageService.findForHhUpdate(new Date());
+    for (const page of data) {
+      const hhData = await this.hhservice.getData(page.category);
+      page.hh = hhData;
+      await this.sleep();
+      await this.topPageService.updateTPById(page._id, page);
+    }
+  }
+
+  private sleep() {
+    // задержка между заросами в цикле
+    return new Promise<void>((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 100);
+    });
   }
 }

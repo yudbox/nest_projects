@@ -1,6 +1,6 @@
 import { TopLevelCategory } from '../enums/topLevelCategory.enum';
 
-interface hhData {
+export interface hhData {
   count: number;
   juniorSalary: number;
   middleSalary: number;
